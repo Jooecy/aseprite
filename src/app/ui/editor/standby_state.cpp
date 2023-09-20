@@ -1,5 +1,5 @@
 // Aseprite
-// Copyright (C) 2018-2022  Igara Studio S.A.
+// Copyright (C) 2018-2023  Igara Studio S.A.
 // Copyright (C) 2001-2018  David Capello
 //
 // This program is distributed under the terms of
@@ -57,6 +57,7 @@
 #include "base/vector2d.h"
 #include "doc/grid.h"
 #include "doc/layer.h"
+#include "doc/layer_tilemap.h"
 #include "doc/mask.h"
 #include "doc/slice.h"
 #include "doc/sprite.h"
@@ -498,7 +499,7 @@ bool StandbyState::onKeyDown(Editor* editor, KeyMessage* msg)
 
   Keys keys = KeyboardShortcuts::instance()
     ->getDragActionsFromKeyMessage(KeyContext::MouseWheel, msg);
-  if (!keys.empty()) {
+  if (editor->hasMouse() && !keys.empty()) {
     // Don't enter DraggingValueState to change brush size if we are
     // in a selection-like tool
     if (keys.size() == 1 &&
